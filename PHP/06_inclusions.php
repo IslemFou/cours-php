@@ -69,14 +69,81 @@
                     <!-- partie php -->
                     <?php
                     /*
-                    on va créer un dossier inc à la racine de notre dossier php dans ce dossier on va créer un fichier test1.inc.php 
+                    1- on va créer un dossier inc à la racine de notre dossier php
+                    2-  dans ce dossier on va créer un fichier test1.inc.php 
                     on craie la balise p avec une phrase : ceci est le premier fichier d'inclusion
                     */
                 // utilisation de la fonction include
                 include("inc/test1.inc.php");
+                include"inc/test1.inc.php";
 
                     ?>
+                    <p>Ici nous avons inclus notre fichier test1.inc.php  grâce à la fonction <code>include</code>. Cette fonction prendra comme seul argument le chemin de notre fichier. Nous remarquons ici deux syntaxes possibles pour chacune d'elles. Les parenthèses sont facultatives </p>
                 </div>
+                <!-- include_once  -->
+                <div class="col-sm-12 col-md-6">
+                    <h3 class="text-center text-primary">include_once()</h3>
+                    <!-- partie php -->
+                    <?php
+                    /*
+                    on va créer un fichier test2.inc.php 
+                    on craie la balise p avec une phrase : ceci est le deuxième fichier fichier d'inclusion
+                    */
+                // utilisation de la fonction include
+                include_once("inc/test2.inc.php");
+                include_once"inc/test2.inc.php";
+
+                    ?>
+                    <p>Ici nous avons inclus notre fichier test2.inc.php grâce à la fonction <code>include_once()</code>. Cette fonction prendra comme seul argument le chemin de notre fichier. Cette fonction permet d'importer une fois seulement un fichier même s'il y'a plusieurs tentatives d'importation du fichier dans la page</p>
+                </div>
+                <!--require_once  -->
+                <div class="col-sm-12 mt-5">
+                    <h2 class="text-center border-top pt-5 my-5">La fonction require</h2>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <!-- require -->
+                            <h3 class="text-center text-primary">require()</h3>
+                            <?php
+                            /*
+                            1- on craie un fichier test3.inc.php dans le dossier inc
+                            2- on craie la balise ceci est le premier fichier d'inclusion avec require
+                            */
+                            require("inc/test3.inc.php");
+                            require"inc/test3.inc.php";
+
+                            ?>
+                            <p>Ici nous avons inclus notre fichier test3.inc.php  grâce à la fonction <code>require</code>. Cette fonction prendra comme seul argument le chemin de notre fichier.Nous remarquons aussi deux syntaxes possibles pour chacune d'elles. Les parenthèses sont facultatives </p>
+                        </div>
+                        <!-- require_once -->
+                        <div class="col-sm-12 col-md-6">
+                <h3  class="text-center text-primary">require_once()</h3>
+                  <?php
+                  /**
+                   * Dans ce dossier inc on vas créer un fichier test4.inc.php
+                   * On crée une balise p avec une phrase : Ceci est le deuxième fichier d'inclusion
+                   */
+                  require_once "inc/test4.inc.php" ;
+                  require_once ("inc/test4.inc.php" );             
+                  ?>
+                <p>Ici nous avons inclus notre fichier test4.inc.php grâce à la fonction <code>require_once()</code>. Cette fonction prendra comme seul argument le chemin de notre fichier. Cette fonction permet d'importer une fois seulement un fichier même s'il y'a plusieurs tentatives d'importation du fichier dans la page</p>
+              </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 mb-5">
+          
+          <p class="alert alert-warning text-center">l'utilisation des fonctions include_once et require_once est dépréciée pour des raisons d'optimisation. Elles sont en effet plus lentes que leur petite soeur respective car elles doivent vérifier en plus que le fichier n'a été importé qu'une fois.</p>
+         
+        </div>
+        <div class="col-sm-12 ">
+          <h2  class="text-center border-top pt-5">La différence entre include() et require()</h2>
+          <p>La fonction include() renverra une erreur de type WARNING si elle n'arrive pas à ouvrir le fichier en question. De ce fait l'exécution du code qui suit dans la page sera exécuté. En revanche, la fonction require() affichera une erreur de type FATAL qui interrompt l'exécution du script.</p>
+         
+        </div> 
+        <div class="col-sm-12 mb-5">
+          
+          <p class="alert alert-secondary text-center">Afin de mettre en pratique l'utilisation de ces deux fonctions, nous allons créer deux fichiers : <span>header.inc.php</span> et <span>footer.inc.php</span>. Nous stockerons respectivement la partie haute et basse de notre site de cours PHP. À partir du prochain chapitre, nous utiliserons les fonctions d'inclusion afin de les rajouter à nos pages.</p>
+         
+        </div>
             </div>
         </div>
         </section>
