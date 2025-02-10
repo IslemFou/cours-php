@@ -28,8 +28,7 @@ require_once("inc/header.inc.php");
                 
             </ul>
             </div>
-          </div>
-          <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6">
             <ul>
                 <li><span>str_ends_with()</span> : permet de vérifier si une chaîne se termine par une sous-chaîne donnée</li>
                 <li><span>trim()</span> : permet de supprimer les espaces avant et après une chaîne de caractère </li>
@@ -38,80 +37,191 @@ require_once("inc/header.inc.php");
                 <li><span>ucfirst()</span> : permet de mettre le premier caractère en majuscule. </li>
                 <li><span>lcfirst()</span> : permet de mettre le premier caractère en miniscule. </li>
             </ul>
+        </div>
           </div>
-          </div>
-          <!-- php -->
+            <div class="border border-info">
+                <!-- php -->
+                <?php
+                $maChaine = "Bonjour J'aime le PHP !!";
+                // Je voulais afficher un seul caractère issu de $maChaine
+                echo $maChaine[3].'<br>'; // j
+                // Modifier un caractère de la chaine
+                $maChaine[0] ='B'; // remplacement de b par B
+                echo $maChaine.'<br>'; // Bonjour J'aime le PHP !!
+
+                //extraction d'une partie de la chaine de caractère
+                $mvlChaine = substr($maChaine, 0, 9);  // ($chaine, index de départ,nbr longeur) : cette fonction prend en paramètre la variable, le point de départ ,  et la longeur souhaité
+                echo $mvlChaine.'<br>'; // Bonjour J
+                echo "<h3>Excercie </h3>";
+                // EXcercice
+                /* Récupérer un fragment de texte ( de l'indice 0 à l'indice 40, et remplacer la partie enlevée avec ce morceau de code :...<a href="#"> Lire la suite</a>
+                */
+                $texte = " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi ducimus illum, sequi harum vitae tempore veritatis? Aliquam saepe quia delectus molestiae aut repudiandae expedita autem, dolorem dolorum cum nesciunt dolor.
+                Praesentium eum, molestiae autem quas numquam temporibus et cupiditate corporis quo eos deserunt magni non cum explicabo doloribus, fugiat illum necessitatibus maxime! Similique corporis veniam sunt consequuntur soluta est aliquam?
+                Mollitia, sint incidunt est vero, blanditiis, officiis nostrum quisquam maxime rem sed at neque dolor magni ratione. Veniam, obcaecati. Voluptate consequuntur consectetur provident voluptates ex mollitia, saepe odio necessitatibus voluptas?
+                Facilis, officia illo accusantium libero quidem laborum inventore, eveniet excepturi nobis neque doloremque itaque expedita voluptatum molestias hic quo facere! Aliquam suscipit deserunt perferendis nesciunt illo earum eaque quo excepturi.";
+                // correction
+                $segment = substr($texte, 0, 40);
+                echo "En utilisant la fonction <strong>substr()</strong> qui affiche : <p>$segment ... <a href='#'>Lire la suite</a></p>"; // Lorem ipsum dolor sit amet, consectetur ... Lire la suite
+                // récupérer la position d'une chaine de caractère dans une chaine de caractère avec strpos()
+                echo '<strong>strpos()</strong> qui affiche La position de la lettre H dans ma phrase est : '.strpos($maChaine, 'H') . '<br>'; // La position de la lettre H dans ma phrase est : 19
+                var_dump($maChaine, 'h'); //string(24) "Bonjour J'aime le PHP !!" string(1) "h" // Affiche le dump des deux elements $maChaine et 'h'
+                // Attention la fonction est sensible à la casse, elle fait attention à la casse des lettres
+                // ----- Récupérer la taille d'une chaine de caractère"----------- strlen()
+                echo '<br> En utilisant la fonction <strong>strlen()</strong> qui affiche la taille de ma chaine de caractère $maChaine est : '.strlen($maChaine);
+                // ----- Remplacer une partie de la chaine
+                $maChaine = str_replace('PHP', 'JS', $maChaine); // les paramètres de la fonction : la chaine de caractère à changer, la nouvelle chaine, la variable de la chaine)
+                echo '<br> En utilisant <strong>str_replace("PHP", "JS", $maChaine)</strong> qui renvoie : '.$maChaine;
+                //------- 
+                $maChaine = str_ireplace('bonjour', 'Hello',$maChaine);
+                echo '<br> En utilisant la fonction <strong>str_ireplace()</strong> qui remplace Bonjour par Hello, $maChaine renvoie :'. $maChaine. '<br>';
+                #----- Vérifier si la chaine contient un mot particuliere
+                echo 'En utilisant <strong>str_contains($maChaine, \'JS\')</strong> renvoie le nombre de fois : '.str_contains($maChaine, 'JS'); // 1 : La chaine JS existe une seule fois
+                echo '<br>';
+                var_dump(str_contains($maChaine, 'JS')); // les paramètres : la variable qui contient la chaine et le mot à vérifier. sensible à la casse // Le résultat est un boolean  : true ou false (exsite ou n'exsiste pas)
+                echo '<br>';
+                #------- Vérifier si la chaine commence
+                var_dump(str_starts_with($maChaine, 'Hel')); // true
+                echo '<br>';
+                # ------ Vérifier si la chaine se termine par
+                var_dump(str_ends_with($maChaine, '!')); // true
+                echo '<br>';
+
+                #supprimer les espaces inultule au début et à la fin
+                $testTrim = "    Je suis une phrase avec des espaces au début et à la fin     ";
+                echo 'Au niveau de l\'echo la chaine s\'affiche sans espaces'.$testTrim ;
+                echo '<br>';
+                echo 'La longeur de la chaine est : '.strlen($testTrim);
+                echo '<br>';
+
+                $nouveau = trim($testTrim);
+                echo $nouveau;
+                echo '<br>';
+                echo 'La nouvelle longeur de la chaine (en appliquant le trim) est : '.strlen($nouveau);
+                ?>
+            </div>
+          </div>   
+          <div class="col-sm-12 mt-5">
+            <h3 class="text-primary text-center mb-5">Les fonctions prédéfinies des Tableaux</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <ul>
+                        <li><span>array_push()</span> : permet d'ajouter plusieurs valeurs à la fin d' un tableau</li>
+                        <li class="alert alert-warning">Si on veut ajouter une seule valeur à la fin on utilise la syntaxe : <strong>$tableau[] = valeur_à_ajouter</strong> </li>
+                        <li><span>array_unshift</span>: permet d'ajouter une valeur au début d'un tableau</li>
+                        <li><span>array_pop</span>: permet de supprimer la dernière valeur d'un tableau</li>
+                        <li><span>array_shift</span>: permet de supprimer la première valeur d'un tableau</li>
+                        <li><span>unset()</span>: permet de supprimer un élément d'un tableau</li>
+                        <li><span>shuffle</span>: permet de mélanger et réorganiser un tableau</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <ul>
+                        <li><span>array_chunk</span>: permet de déviser un tableau en plusieurs parties et avec un nombre de valeurs à définir</li>
+                        <li><span>count() / sizeof()</span> : permet de retourner la taille du tableau passé en paramètre.</li>
+                        <li><span>in_array()</span>: permet de vérifier qu'une valeur est présente dans un tableau.</li>
+                        <li><span>array_key_exists()</span> : permet de vérifier si une clé existe dans un tableau.</li>
+                        <li><span>explode()</span> : permet de transformer une chaîne de caractère en tableau</li>
+                        <li><span>implode()</span> : permet de Transformer un tableau en chaîne de caractères.</li>
+                        <li><span>array_slice()</span> : permet de récuperer une partie d'un tableau </li>
+                    </ul>
+                </div>
+            </div>
+
             <?php
-    $maChaine = "Bonjour J'aime le PHP !!";
-    // Je voulais afficher un seul caractère issu de $maChaine
-    echo $maChaine[3].'<br>'; // j
-    // Modifier un caractère de la chaine
-    $maChaine[0] ='B'; // remplacement de b par B
-    echo $maChaine.'<br>'; // Bonjour J'aime le PHP !!
+                //Création de la fonction vardump pour formater directement l'affichage de nos test
+                //en utilisant un paramètre de la fonction
+                function vardump($parametre){
+                    echo '<pre class="alert alert-info">';
+                        var_dump($parametre);
+                    echo '</pre>';
+                }
 
-    //extraction d'une partie de la chaine de caractère
-    $mvlChaine = substr($maChaine, 0, 9);  // ($chaine, index de départ,nbr longeur) : cette fonction prend en paramètre la variable, le point de départ ,  et la longeur souhaité
-    echo $mvlChaine.'<br>'; // Bonjour J
+                $tableau = ['Rouge', 'Rose', 'Violet'];
+                // Affichage du tableau
+                echo '<p class="alert alert-success">1. Nous affichons notre tableau</p>';
+                vardump($tableau); // usage de la fonction vardump utilisateur
+
+                #ajouter des valeurs à la fin du tableau
+                array_push($tableau, 'Vert', 'Noir');
+                echo '<p class="alert alert-success">2. usage array_push</p>';
+                vardump($tableau);
+
+                #ajouter des valeur au début du tableau
+                array_unshift($tableau, 'Gris', 'Jaune');
+                echo '<p class="alert alert-success">3. usage array_unshift</p>';
+                vardump($tableau);
+
+                #supprimer la derniere valeur du tableau
+                $valeurSupprimerFin = array_pop($tableau);
+                echo '<p class="alert alert-success">4. usage array_pop</p>';
+                vardump($valeurSupprimerFin); //affichage de la valeur supprimer
+                vardump($tableau); // affichage du tableau avec suppression de la derniere valeur
+
+                #supprimer la premiere valeur du tableau
+                $valeurSupprimerDebut = array_shift($tableau);
+                echo '<p class="alert alert-success">5. usage array_shift</p>';
+                vardump($valeurSupprimerDebut); //affichage de la valeur supprimer
+                vardump($tableau); // affichage du tableau avec suppression de la premiere valeur
+
+                # Mélanger un tableau
+                echo '<p class="alert alert-success">6. usage suffle()</p>';
+                shuffle($tableau);
+                vardump($tableau);
+
+                # Diviser un tableau en plusieurs tableaux
+                echo '<p class="alert alert-success">7. Diviser un tableau en plusieurs tableaux : array_chunk</p>';
+                $tableau2 = array_chunk($tableau,3,true);
+                vardump($tableau2);
+
+                #compter les elements dans un tableau
+                echo '<p class="alert alert-success">8. compter les elements dans un tableau avec count() et size()</p>';
+
+                $nbr1 = count($tableau);
+                $nbr2 = sizeof($tableau);
+                vardump($nbr1); // int (5)
+                vardump($nbr2); // int (5)
+
+                # Vérifier une valeur
+                echo '<p class="alert alert-success">9.Vérifier une valeur in_array()</p>';
+                $result = in_array('Bleu', $tableau);
+                vardump($result);
+
+                #vérifier une clé / indice dans un tableau
+                echo '<p class="alert alert-success">10.vérifier une clé / indice dans un tableau</p>';
+                $result2 = array_key_exists(2, $tableau);
+                vardump($result2);
+
+                #union de deux tableaux 
+                echo '<p class="alert alert-success">11.Créer un tableau à partir de deux tableaux</p>';
+                $couleursFav = ['Beige', 'Bordeaux', 'VertFoncé'];
+                vardump($couleursFav);
+
+                echo '<p class="alert alert-warning">un tableau qui reçoit les valeurs l\'union de deux tableaux</p>';
+                $all = [...$tableau, ...$couleursFav]; // $all est un tableau qui reçoit les valeurs l'union de deux tableaux 
+                vardump($all);
+
+                
+                #Créer un tableau à partir de deux tableaux
+                echo '<p class="alert alert-warning">un tableau multidimensionnel</p>';
+                $all2 = [$tableau,$couleursFav]; // ici all2 a pour deux tableaux index 0 et index 1
+                vardump($all2);          
+                
+                /* ------------- Transformer une chaine de caractère en tableau
+                */
+                echo '<p class="alert alert-warning">Transformer une chaine de caractère en tableau</p>';
+                $maChaine2 = "Je me transforme en tableau";
+                $chaineEnTab = explode(' ', $maChaine2); // (le séparateur, la variable tableau)
+                vardump($chaineEnTab);
 
 
-echo "<h3>Excercie </h3>";
 
-    // EXcercice
-    /* Récupérer un fragment de texte ( de l'indice 0 à l'indice 40, et remplacer la partie enlevée avec ce morceau de code :...<a href="#"> Lire la suite</a>
-    */
-    $texte = " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi ducimus illum, sequi harum vitae tempore veritatis? Aliquam saepe quia delectus molestiae aut repudiandae expedita autem, dolorem dolorum cum nesciunt dolor.
-    Praesentium eum, molestiae autem quas numquam temporibus et cupiditate corporis quo eos deserunt magni non cum explicabo doloribus, fugiat illum necessitatibus maxime! Similique corporis veniam sunt consequuntur soluta est aliquam?
-    Mollitia, sint incidunt est vero, blanditiis, officiis nostrum quisquam maxime rem sed at neque dolor magni ratione. Veniam, obcaecati. Voluptate consequuntur consectetur provident voluptates ex mollitia, saepe odio necessitatibus voluptas?
-    Facilis, officia illo accusantium libero quidem laborum inventore, eveniet excepturi nobis neque doloremque itaque expedita voluptatum molestias hic quo facere! Aliquam suscipit deserunt perferendis nesciunt illo earum eaque quo excepturi.";
-    // correction
-    $segment = substr($texte, 0, 40);
-    echo "En utilisant la fonction <strong>substr()</strong> qui affiche : <p>$segment ... <a href='#'>Lire la suite</a></p>"; // Lorem ipsum dolor sit amet, consectetur ... Lire la suite
-    // récupérer la position d'une chaine de caractère dans une chaine de caractère avec strpos()
-    echo '<strong>strpos()</strong> qui affiche La position de la lettre H dans ma phrase est : '.strpos($maChaine, 'H') . '<br>'; // La position de la lettre H dans ma phrase est : 19
-    var_dump($maChaine, 'h'); //string(24) "Bonjour J'aime le PHP !!" string(1) "h" // Affiche le dump des deux elements $maChaine et 'h'
-    // Attention la fonction est sensible à la casse, elle fait attention à la casse des lettres
-    // ----- Récupérer la taille d'une chaine de caractère"----------- strlen()
-    echo '<br> En utilisant la fonction <strong>strlen()</strong> qui affiche la taille de ma chaine de caractère $maChaine est : '.strlen($maChaine);
-// ----- Remplacer une partie de la chaine
-$maChaine = str_replace('PHP', 'JS', $maChaine); // les paramètres de la fonction : la chaine de caractère à changer, la nouvelle chaine, la variable de la chaine)
-echo '<br> En utilisant <strong>str_replace("PHP", "JS", $maChaine)</strong> qui renvoie : '.$maChaine;
-//------- 
-$maChaine = str_ireplace('bonjour', 'Hello',$maChaine);
-echo '<br> En utilisant la fonction <strong>str_ireplace()</strong> qui remplace Bonjour par Hello, $maChaine renvoie :'. $maChaine. '<br>';
-#----- Vérifier si la chaine contient un mot particuliere
-echo 'En utilisant <strong>str_contains($maChaine, \'JS\')</strong> renvoie le nombre de fois : '.str_contains($maChaine, 'JS'); // 1 : La chaine JS existe une seule fois
-echo '<br>';
-var_dump(str_contains($maChaine, 'JS')); // les paramètres : la variable qui contient la chaine et le mot à vérifier. sensible à la casse // Le résultat est un boolean  : true ou false (exsite ou n'exsiste pas)
-echo '<br>';
-#------- Vérifier si la chaine commence
-var_dump(str_starts_with($maChaine, 'Hel')); // true
-echo '<br>';
-# ------ Vérifier si la chaine se termine par
-var_dump(str_ends_with($maChaine, '!')); // true
-echo '<br>';
-
-#supprimer les espaces inultule au début et à la fin
-$testTrim = "    Je suis une phrase avec des espaces au début et à la fin     ";
-echo 'Au niveau de l\'echo la chaine s\'affiche sans espaces'.$testTrim ;
-echo '<br>';
-echo 'La longeur de la chaine est : '.strlen($testTrim);
-echo '<br>';
-
-$nouveau = trim($testTrim);
-echo $nouveau;
-echo '<br>';
-echo 'La nouvelle longeur de la chaine (en appliquant le trim) est : '.strlen($nouveau);
-
-
-
-
-
-
-
-
-?>
+                ?>
+        </div>        
     </div>
-    
+
+<!-- Les fonctions prédéfinies des tableaux -->
+ 
 </main>
 
 
