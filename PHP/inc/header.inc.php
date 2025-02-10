@@ -37,7 +37,13 @@
             <a class="nav-link" href="05_boucles.php">Les boucles en PHP</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="06_inclusions.php">Les importations des fichier</a>
+            <a class="nav-link" href="06_inclusions.php">Les inclusions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="07_les_tableaux.php">Les tableaux</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="08_Les_fonctions.php">Les fonctions</a>
           </li>
         </ul>
 

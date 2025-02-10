@@ -75,9 +75,41 @@ echo "<h3>Excercie </h3>";
 // ----- Remplacer une partie de la chaine
 $maChaine = str_replace('PHP', 'JS', $maChaine); // les paramètres de la fonction : la chaine de caractère à changer, la nouvelle chaine, la variable de la chaine)
 echo '<br> En utilisant <strong>str_replace("PHP", "JS", $maChaine)</strong> qui renvoie : '.$maChaine;
+//------- 
+$maChaine = str_ireplace('bonjour', 'Hello',$maChaine);
+echo '<br> En utilisant la fonction <strong>str_ireplace()</strong> qui remplace Bonjour par Hello, $maChaine renvoie :'. $maChaine. '<br>';
+#----- Vérifier si la chaine contient un mot particuliere
+echo 'En utilisant <strong>str_contains($maChaine, \'JS\')</strong> renvoie le nombre de fois : '.str_contains($maChaine, 'JS'); // 1 : La chaine JS existe une seule fois
+echo '<br>';
+var_dump(str_contains($maChaine, 'JS')); // les paramètres : la variable qui contient la chaine et le mot à vérifier. sensible à la casse // Le résultat est un boolean  : true ou false (exsite ou n'exsiste pas)
+echo '<br>';
+#------- Vérifier si la chaine commence
+var_dump(str_starts_with($maChaine, 'Hel')); // true
+echo '<br>';
+# ------ Vérifier si la chaine se termine par
+var_dump(str_ends_with($maChaine, '!')); // true
+echo '<br>';
+
+#supprimer les espaces inultule au début et à la fin
+$testTrim = "    Je suis une phrase avec des espaces au début et à la fin     ";
+echo 'Au niveau de l\'echo la chaine s\'affiche sans espaces'.$testTrim ;
+echo '<br>';
+echo 'La longeur de la chaine est : '.strlen($testTrim);
+echo '<br>';
+
+$nouveau = trim($testTrim);
+echo $nouveau;
+echo '<br>';
+echo 'La nouvelle longeur de la chaine (en appliquant le trim) est : '.strlen($nouveau);
 
 
-            ?>
+
+
+
+
+
+
+?>
     </div>
     
 </main>
