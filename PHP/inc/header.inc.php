@@ -46,8 +46,8 @@
   </nav>
   <header class="p-5 m-4 bg-light rounded-3 border ">
         <section class="container py-5">
-            <h1>
-
+            <h1><?=$h1 ?>
+            
 
             </h1>
             <p class="col-md-12 fs-4">
