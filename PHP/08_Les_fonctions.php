@@ -126,9 +126,12 @@ require_once("inc/header.inc.php");
                         <li><span>array_slice()</span> : permet de récuperer une partie d'un tableau </li>
                     </ul>
                 </div>
+            
             </div>
 
             <?php
+ #              Les fonctions prédéfinies des tableaux 
+
                 //Création de la fonction vardump pour formater directement l'affichage de nos test
                 //en utilisant un paramètre de la fonction
                 function vardump($parametre){
@@ -213,15 +216,260 @@ require_once("inc/header.inc.php");
                 $maChaine2 = "Je me transforme en tableau";
                 $chaineEnTab = explode(' ', $maChaine2); // (le séparateur, la variable tableau)
                 vardump($chaineEnTab);
+                
 
 
+                # Transformer un tableau en chaîne de caractère
+
+               $monTab = ['Salut', 'je', 'viens', 'du', 'tableau', '!'];
+               $tableauEnChaine = implode(' ', $monTab); // Les paramètres : le caractére de séparation dans la chaîne et la variable du tableau à fusionner 
+               echo '<pre>';
+               var_dump($tableauEnChaine);
+               echo '</pre>';
+               echo $tableauEnChaine;
+
+               # Récupérer une partie d'un tableau
+
+               $monArray = [
+                    'a' => 100,
+                    'b' => 200,
+                    'c' => 300,
+                    'd' => 'Alexandre',
+                    'e' => 'Roger'
+               ];
+
+               $nvArray = array_slice($monArray, 1, 3);
+
+               //echo($monArray);
+
+              // echo($nvArray);
+
+               echo '<pre>';
+               var_dump($nvArray);
+               echo '</pre>';
 
                 ?>
-        </div>        
-    </div>
+        </div> 
+        <div class="col-sm-12 mt-5">
+            <h3 class="text-primary text-center mb-5">Les fonctions <span>isset()</span> et <span>empty()</span></h3>
+            <ul>
+                <li class="alert alert-success">Ces fonctions sont utiles lorsque vous souhaitez effectuer une validation de données.</li>
+            </ul>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h4 class="text-success text-center">isset()</h4>
+                    <ul>
+                        <li>La fonction<span> isset()</span> détermine si une variable existe.</li>
+                        <li>La fonction vérifie si la variable est définie, et non NULL </li>
+                        <li>La fonction retourne true quand la variable testé est définie ou elle ne contient pas la valeur NULL</li>
+                    </ul>
 
-<!-- Les fonctions prédéfinies des tableaux -->
- 
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <h4 class="text-success text-center">empty()</h4>
+                    <ul>
+                        <li>La fonction <span>empty()</span> vérifie si une variable est vide.</li>
+                        <li>La focntion retourne true si la variable testé est égale à :
+                            <ul>
+                                <li>"" (une chaîne vide)</li>
+                                <li>0 (0 en tant qu'entier)</li>
+                                <li>"0" (0 en tant que chaîne de caractères)</li>
+                                <li>NULL</li>
+                                <li>false</li>
+                                <li>array() (un tableau vide)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <!-- php -->
+             <?php
+             $var1 = 0;
+             $var2 = '';
+
+             if (isset($var1))
+             {
+                echo 'La variable \$var1 existe et not NULL<br>';
+             } else
+             { // dans le cas de la var3 par exemple, elle n'existe pas
+                echo 'Cette variable n\'exsite pas ou elle est Nulle<br> ';
+             }
+
+             ##############
+             if (empty($var2))
+             { // si true
+                echo "\$var2 est vide (0, string vide, NULL, false, non définie) <br>";
+             } else
+             {
+                echo "\$var2 n'est pas vide";
+             }
+             // Difference entre isset() et empty(): si on supprime les déclarations des variables $var1 et$var2;
+             //empty() reste vraie car $var2 n'est pas définie
+             //isset() devient false car $var1 n'est pas définie non plus
+             //Utilisation : empty() pour valider et vérifier qu'un champs de formulaire est remplie.
+             //              isset() pour vérifier l'existence d'une variable avant de l'utiliser.
+             
+            
+             ?>
+        </div>
+    </div> 
+    <!-- ---------------------------- Les fonctions utilisateurs ----------------------------------------------------------- -->
+    <div class="row">
+          <h2 class="mt-5">2 - Les fonctions Utilisateurs </h2>
+          <ul>
+               <li>Les fonctions utilisateurs sont des morceaux de code écrits dans des accolades et portant un nom.</li>
+               <li>On appelle la fonction au besoin</li>
+               <li>Il est recommendée de créer des fonctions afin d'éviter la redondance au niveau du code quand on veut exécuter plusieurs fois le même traitement . On parle alors de <strong>"factoriser"</strong>son code.</li>
+          </ul>
+    <!-- code php -->
+    <?php
+         function separation()
+         { // on déclare une fonction avec le mot clé "function" suivi du nom de la fonction et d'une paire de () qui accueillerons des paramètres ultérieurement
+
+              echo "<hr>";
+         }
+         separation(); // pour exécuter une fonction (donc le code qui s'y trouve), on l'appelle en écrivant son nom suivi d'une paire de ()
+
+         ////////////////////// Fonctions avec paramétres et return ///////////////////////////////////
+
+
+         // Fonction sans return
+
+         function bonjour1($prenom, $nom)
+         { // $prenom et $nom sont les paramètres de notre fonction. Ils permettent de recevoir une valeur car il s'agit de variables de reception
+
+              echo "<p> Bonjour $prenom $nom ! </p>";
+         }
+         bonjour1('Hawa', 'KONE'); // si la fonction attend des valeurs  il faut obligatoirement les lui donner. Ces valeurs s'apellent des arguments
+         bonjour1('Ouarda', 'CHIED');
+
+
+         // La même fonction avec return
+
+         function bonjour2($prenom, $nom)
+         {
+
+              return "<p> Bonjour $prenom $nom ! </p>"; // return permet de sortir la phrase "Bonjour ..." et de la renvoyer à l'endroit où la fonction est applée
+
+              //Après le return tout les instructions ne sront pas exécuter
+
+         }
+
+         echo bonjour2('Mamadou', 'AMADOU'); // Ici on met un echo car la fonction nous retourne la phrase mais ne l'affiche pas directement
+         echo bonjour2('Islem', 'FOURATI');
+
+
+         //Ici on peut remplacer les arguments par des variables (provenant d'un formulaire par exemple )
+         $prenom1 = 'Alexandre';
+         $nom1 = 'CAVET';
+         echo bonjour2($prenom1, $nom1); // Les deux arguments sont variables et peuvent recevoir n'importe quelle valeur
+
+         $prenom1 = 'Yacine';
+         $nom1 = 'DJEDIDEN';
+         echo bonjour2($prenom1, $nom1);
+
+
+         // Exercice : vous écriver une fonction qui multiplie un nombre 1 par un nombre 2 fournis lors de l'appel . cette fonction retourne le résultat de la multiplication . Vous afficher le résultat
+
+         function multiplier($nombre1, $nombre2)
+         {
+              $resultat = $nombre1 * $nombre2;
+              return "<p> Le résultat de la multiplication de la valeur $nombre1 x $nombre2 est égale à : $resultat</p>";
+              // return "<p> Le résultat de la multiplication de la valeur $nombre1 * $nombre2 est égale à : " . $nombre1 * $nombre2 . "</p>";
+
+         }
+
+         echo  multiplier(200, 5859);
+         $nbr1 = 20;
+         $nbr2 = 6;
+
+         echo  multiplier($nbr1, $nbr2 = 4); // je réaffecte une nouvelle valeur à ma variable  directement dans les arguments de ma fonction
+
+         //Le résultat de la multiplication de la valeur $nombre1 * $nombre2 est égale à : (la valeur de la multiplication)
+
+
+         //Fonction avec paramètres optionnel
+
+         // certains paramétres peuvent ne pas être passés. Une valeur est fournie lors de la dérclaration.
+         // Afin de se servir d'un paramètre optionnel il faut utiliser les arguments nommées
+
+         function bonjour3($bonjour = "Salut", $prenom, $nom)
+         {
+              //Sans les paramétres nommés je suis obligée de mettre le paramétre optionnel à la fin des paramétres dans les () de la fonction
+
+              echo "<p> $bonjour $prenom $nom</p>";
+         }
+         bonjour3(prenom: 'Andrea', nom: 'LEO', bonjour: 'Hello');
+
+
+         ?>
+    </div>
+    <!-- ----------------------------- La portée des variables ---------------------------------------------------------------- -->
+    <div class="row">
+          <h2 class="my-5">3- Portée des variables dans les fonctions</h2>
+          <div class="col-sm-12 col-md-4">
+               <h3 class="text-primary text-center mb-5">Variable locale</h3>
+               <p>Les variables déclarées dans vos scripts ne sont pas accessibles dans vos fonctions et inversement.</p>
+               <?php
+               define("A", "je suis une constante");
+               $a = 5;
+               function maFonction()
+               {
+                    echo A; // la constante est appelé à l'exterieur de la fonction et je peux bien récupérer sa valeur de l'intérieur de la fonction
+                    $b = 3;
+                    // echo $a; // affiche variable non définie
+                    echo "<p> La variable \$b  = $b .</p>"; // Affiche 3 : ici nous nous trouvons dans l'espace local de la focntion. cette variable est dite "locale"
+               }
+               maFonction();
+
+               echo "<p> La variable \$a  = $a .</p>";
+               //  echo "<p> La variable \$b  = $b .</p>"; // je demande à afficher la variable $b qui est définie dans la fonction => affiche variable indéfinie : on ne peut pas accéder à cette variable car elle n'est connue que à l'intérieur de la fonction
+               ?>
+          </div>
+          <div class="col-sm-12 col-md-4">
+               <h3 class="text-primary text-center mb-5">Variable globale</h3>
+               <p>Les variables déclaréses dans vos scripts peuvent être accessible dans vos fonctions à condition d'être déclarées avce le mot clé <span>global</span> dans celles-ci.</p>
+               <?php
+               $a = 2;
+               function maFonction2()
+               {
+                    define("B", "je suis une constante");
+                    global $a; // permet d'aller chercher la variable à l'éxtérieur de la fonction pour pouvoir l'exploiter à l'intérieur
+                    $b = 6;
+                    echo "<p> La variable \$a  = $a .</p>"; // affiche 5
+                    echo "<p> La variable \$b  = $b .</p>"; // Affiche 3
+                    $a = 8;
+               }
+               maFonction2();
+
+               echo "<p> La variable \$a  = $a .</p>";
+               echo B;
+
+               ?>
+
+
+          </div>
+          <div class="col-sm-12 col-md-4">
+               <h3 class="text-primary text-center mb-5">Variable static</h3>
+               <p>Les variables d'une fonction sont réinitialisées à chaque appel de cette fonction.</p>
+               <p>Si l'on veut conserver la valeur précédente, il faut déclarer la variable comme static</p>
+               <?php
+               function maFonction3()
+               {
+
+                    static $a = 9;
+                    $a++;
+
+                    echo "<p> La variable \$a  = $a .</p>";
+               }
+               maFonction3();
+               maFonction3();
+               maFonction3();
+
+               ?>
+          </div>
+     </div>
 </main>
 
 
