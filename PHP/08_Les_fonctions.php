@@ -394,13 +394,14 @@ require_once("inc/header.inc.php");
          // certains paramétres peuvent ne pas être passés. Une valeur est fournie lors de la dérclaration.
          // Afin de se servir d'un paramètre optionnel il faut utiliser les arguments nommées
 
-         function bonjour3($bonjour = "Salut", $prenom, $nom)
+         function bonjour3( $prenom, $nom, $bonjour = "Salut")
          {
               //Sans les paramétres nommés je suis obligée de mettre le paramétre optionnel à la fin des paramétres dans les () de la fonction
 
               echo "<p> $bonjour $prenom $nom</p>";
          }
          bonjour3(prenom: 'Andrea', nom: 'LEO', bonjour: 'Hello');
+         bonjour3(prenom: 'Alexandre', nom: 'CAVET');
 
 
          ?>
@@ -409,27 +410,31 @@ require_once("inc/header.inc.php");
     <div class="row">
           <h2 class="my-5">3- Portée des variables dans les fonctions</h2>
           <div class="col-sm-12 col-md-4">
-               <h3 class="text-primary text-center mb-5">Variable locale</h3>
+               <h3 class="text-primary text-center mb-5">La Variable locale</h3>
                <p>Les variables déclarées dans vos scripts ne sont pas accessibles dans vos fonctions et inversement.</p>
                <?php
-               define("A", "je suis une constante");
+               define("A", " je suis une constante"); // Déclaration d'une constante
                $a = 5;
+
+
                function maFonction()
                {
-                    echo A; // la constante est appelé à l'exterieur de la fonction et je peux bien récupérer sa valeur de l'intérieur de la fonction
+                    echo 'Affichage de la constante déclarée dehors de la fonction '.A; // la constante est appelé à l'exterieur de la fonction et je peux bien récupérer sa valeur de l'intérieur de la fonction
                     $b = 3;
                     // echo $a; // affiche variable non définie
                     echo "<p> La variable \$b  = $b .</p>"; // Affiche 3 : ici nous nous trouvons dans l'espace local de la focntion. cette variable est dite "locale"
                }
                maFonction();
 
-               echo "<p> La variable \$a  = $a .</p>";
+               echo "<p> La variable globale \$a  = $a : cette variable est appelée en dehors de la fonction</p>";
                //  echo "<p> La variable \$b  = $b .</p>"; // je demande à afficher la variable $b qui est définie dans la fonction => affiche variable indéfinie : on ne peut pas accéder à cette variable car elle n'est connue que à l'intérieur de la fonction
                ?>
           </div>
           <div class="col-sm-12 col-md-4">
-               <h3 class="text-primary text-center mb-5">Variable globale</h3>
+               <h3 class="text-primary text-center mb-5">La Variable globale</h3>
                <p>Les variables déclaréses dans vos scripts peuvent être accessible dans vos fonctions à condition d'être déclarées avce le mot clé <span>global</span> dans celles-ci.</p>
+
+
                <?php
                $a = 2;
                function maFonction2()
@@ -444,21 +449,23 @@ require_once("inc/header.inc.php");
                maFonction2();
 
                echo "<p> La variable \$a  = $a .</p>";
-               echo B;
+               echo B; // on peut afficher la constante déclarée dans la fonction
 
                ?>
 
 
           </div>
           <div class="col-sm-12 col-md-4">
-               <h3 class="text-primary text-center mb-5">Variable static</h3>
+               <h3 class="text-primary text-center mb-5">La Variable statique</h3>
                <p>Les variables d'une fonction sont réinitialisées à chaque appel de cette fonction.</p>
                <p>Si l'on veut conserver la valeur précédente, il faut déclarer la variable comme static</p>
                <?php
+
                function maFonction3()
                {
 
-                    static $a = 9;
+                    static $a = 9; //si on enlève le mot clé static, la variable sera réinitialisée à chaque appel de la fonction, elle affichera 10 à chaque fois qu'on l'appellep
+                    // static permet de conserver la valeur de la variable à chaque appel de la fonction
                     $a++;
 
                     echo "<p> La variable \$a  = $a .</p>";
@@ -468,6 +475,140 @@ require_once("inc/header.inc.php");
                maFonction3();
 
                ?>
+          </div>
+     </div>
+     <!-- suite fonctions -->
+      <!-- 4- Typage des paramètres dans les fonctions -->
+     <div class="row">
+          <div class="col-sm-12">
+               <h2 class="my-5">4- Typage des paramètres dans les fonctions</h2>
+               <ul>
+                    <li>Dans nos fonctions on peut ajouter des contraintes de type sur les arguments et sur les valeurs de retour de fonction</li>
+                    <li>Le typage permet un débogage du code plus rapide. En effet, si vous ne transmettez pa le bon type de paramétre à votre fonction, ou si elle ne retourne pas le bon type, une erreur se déclenchera immédiatement au de la fonction. Sinon , vous pourriez avoir une cascades d'erreurs non détéctés et retournant un résultat faux.</li>
+               </ul>
+               <?php
+
+/**
+ * Affiche le prix d'un objet en euros
+ *
+ * @param int $val Le prix de l'objet
+ * @return voids
+ */
+               function prix(int $val): void
+               { // La fonction attends un entier en argument (int $val) et ne retourne rien void
+
+                    echo "<p>Cet objet coûte $val euros</p>";
+               }
+               prix(3); // AFfiche la chaîne de caractére avec la subtitution de la variable à l(intérieur)
+
+               // prix('Andrea'); // l'appel avec une chîne déclenche un TypeError car la fonction attends un nombre entier en paramètre
+
+
+               //On peut déclarer une union de type en écrivant plusieurs type et en les séparent par des pipes
+
+               function cout(int|string $val): void
+               {
+
+                    echo "<p>Cet objet coûte $val euros</p>";
+               }
+               cout(6);
+               cout('Andrea');
+
+
+/**
+ * Effectue la division de deux nombres entiers
+ *
+ * @param int $nbr1 le dividende
+ * @param int $nbr2 le diviseur
+ * @return string la phrase avec le résultat de la division
+ */
+               function diviser(int $nbr1, int $nbr2): string
+               {
+
+                    echo $nbr2 . '<br>';
+                    echo  $nbr1 / $nbr2 . '<br>';
+                    return " le résultat de \$nbr1 / \$nbr2 = " . $nbr1 / $nbr2;
+               }
+
+               echo diviser(9, 2); // important de mettre un echo pour afficher le résultat de la fonction
+               diviser(9, 2); // pas d'affichage de return car pas de echo
+               //si non, la fonction retourne le résultat mais ne l'affiche pas
+               //ou
+               var_dump(diviser(9, 2)); // affiche le résultat de la fonction
+############ Autre exemple
+//Déclaration de la fonction
+function creer_utilisateur(string $nom, 
+                            string $prenom, 
+                            string $email,
+                            string $password,
+                            bool $est_admin = false,// ceci est un param optionnel
+                            ?string $telephone = null// ceci est un param optionnel
+                            ): array 
+// il faut mettre ? devant un parametre null
+{
+   //création d'un tableau associatif pour stocker les informations de l'utilisateur
+   echo "<hr>";
+   echo "<p> L'utilisateur $prenom $nom a été créé avec succès</p>";
+    $utilisateur = [
+        'prenom'=> $prenom,
+        'nom'=> $nom,
+        'email'=> $email,
+        'password'=> $password,
+        'est_admin'=> $est_admin,
+        'telephone'=> $telephone
+                    ];
+    return $utilisateur;
+    echo $utilisateur;
+  
+}
+//1- l'appel avec tous les arguments(paramètres) requis
+$utilisateur1 = creer_utilisateur(
+    prenom: 'Hawa',
+    nom: 'KONE',
+    email: 'hawa.kone@me.com',
+    password: 'azerty',
+    est_admin: true,
+    telephone: '0607080910'
+);
+
+
+echo "<pre>";
+echo "<p>appel avec tous les arguments</p>";
+var_dump($utilisateur1);
+echo "</pre>";
+
+
+// 2- l'appel sans le paramètre optionnel
+$utilisateur2 = creer_utilisateur(
+    prenom: 'Roger',
+    nom: 'Davies',
+    email: 'roger.davies@me.com',
+    password: 'azerty');
+
+    echo "<pre>";
+    echo "<p>L'appel sans les paramètres optionnelles</p>";
+    var_dump($utilisateur2);
+    echo "</pre>";    
+
+// 3- l'appel avec paramètres avec un ordre différent
+$utilisateur3 = creer_utilisateur(
+    email: 'Fourati.islem@me.com',
+    telephone: '0607080910',
+    password: 'abc1233dd',
+    nom: 'FOURATI',
+    prenom: 'Islem' 
+    ); 
+    
+    echo "<pre>";
+    echo "<p>L'appel avec paramètres avec un ordre différent</p>";
+    var_dump($utilisateur3);
+    echo "</pre>";  
+
+
+               ?>
+
+
+
           </div>
      </div>
 </main>
